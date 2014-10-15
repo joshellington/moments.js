@@ -1,0 +1,92 @@
+body.moments-on, html.moments-on {
+  overflow: hidden;
+  width: 100%;
+  height: 100%; }
+
+.moments {
+  background: white;
+  display: none; }
+  .moments.on {
+    display: block; }
+
+.moments, .moments-active, .moments-summary {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%; }
+
+.moments-active {
+  background-color: white;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat; }
+
+.moments-summary {
+  background: black;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 1001;
+  display: none;
+  color: white; }
+  .moments-summary.on {
+    display: block; }
+
+.moments-summary-content {
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 20px; }
+  .moments-summary-content h2 {
+    font-size: 24px;
+    font-weight: normal; }
+  .moments-summary-content p {
+    font-size: 16px;
+    line-height: 1.3; }
+
+.moments-summary-close {
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px; }
+
+.moments-next, .moments-previous, .moments-close, .moments-menu, .moments-counter {
+  cursor: pointer;
+  background: black;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 7px 10px; }
+  .moments-next:hover, .moments-previous:hover, .moments-close:hover, .moments-menu:hover, .moments-counter:hover {
+    background: black; }
+
+.moments-next, .moments-previous {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  z-index: 1000;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%); }
+
+.moments-previous {
+  right: auto;
+  left: 0; }
+
+.moments-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1000; }
+
+.moments-menu {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1000; }
+
+.moments-counter {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1000; }
