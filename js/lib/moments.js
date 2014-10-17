@@ -3,7 +3,7 @@
 
   Moments = (function() {
     function Moments(options) {
-      var _ref, _ref1, _ref10, _ref11, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _ref8, _ref9;
+      var _ref, _ref1, _ref10, _ref11, _ref12, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _ref8, _ref9;
       if (options == null) {
         options = {};
       }
@@ -20,19 +20,20 @@
       this.summary_close_btn = (_ref9 = options.summary_close) != null ? _ref9 : $('.moments-summary-close');
       this.active_container = (_ref10 = options.active) != null ? _ref10 : $('.moments-active');
       this.counter_container = (_ref11 = options.counter) != null ? _ref11 : $('.moments-counter');
+      this.loading_container = (_ref12 = options.loading) != null ? _ref12 : $('.moments-loading');
       this.body = $('html, body');
       this.data = false;
       this.current_collection = false;
       this.current_collection_length = 0;
       this.current_photo = false;
       this.current_photo_index = 0;
+      this.image_queue = false;
       this.init();
     }
 
     Moments.prototype.init = function() {
       console.log('Moments is initialized.');
       this.bindNavigationEvents();
-      this.preload();
       return this.load();
     };
 
@@ -67,10 +68,7 @@
             console.log('Loaded collection: ', _collection);
             _this.current_collection = _collection;
             _this.current_collection_length = _collection.photos.length - 1;
-            _this.container.addClass('on');
-            _this.body.addClass('moments-on');
-            _this.on = true;
-            return _this.open();
+            return _this.preload();
           }
         };
       })(this));
@@ -117,7 +115,39 @@
     };
 
     Moments.prototype.preload = function() {
-      return console.log('TODO: Preload images');
+      var photo, _i, _len, _ref;
+      this.image_queue = new createjs.LoadQueue(true);
+      _ref = this.current_collection.photos;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        photo = _ref[_i];
+        this.image_queue.loadFile(photo.source);
+      }
+      this.startLoading();
+      this.image_queue.on("progress", function(e) {
+        return this.updateProgress(e);
+      }, this);
+      return this.image_queue.on("complete", function(e) {
+        this.open();
+        return this.doneLoading();
+      }, this);
+    };
+
+    Moments.prototype.startLoading = function() {
+      return this.loading_container.show();
+    };
+
+    Moments.prototype.updateProgress = function(e) {
+      var _percentage;
+      _percentage = parseInt(e.loaded * 100);
+      console.log(_percentage);
+      return this.loading_container.find('span').text(_percentage.toString());
+    };
+
+    Moments.prototype.doneLoading = function() {
+      this.loading_container.hide();
+      this.container.addClass('on');
+      this.body.addClass('moments-on');
+      return this.on = true;
     };
 
     Moments.prototype.next = function() {

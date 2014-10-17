@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title></title>
-  <meta name="description" content="">
+  <title>moments.js</title>
+  <meta name="description" content="A simple Javascript gallery plugin. Snappy, flexible and extensible.">
   <meta name="viewport" content="width=device-width">
 
   <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
@@ -26,19 +26,22 @@
       <div class="moments-summary-close">X</div>
     </div>
 
-    <div class="moments-menu">Info</div>
     <div class="moments-navigation">
-      <div class="moments-next">Next</div>
-      <div class="moments-previous">Prev</div>
+      <div class="moments-next"><a href="#">Next</a></div>
+      <div class="moments-previous"><a href="#">Previous</a> &mdash; </div>
+      <div class="moments-menu"><a href="#">Info</a> &mdash; </div>
+      <div class="moments-counter"></div>
     </div>
+
     <div class="moments-close">X</div>
-    <div class="moments-counter"></div>
   </div>
+  <div class="moments-loading"><span>0</span>/100</div>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/lib/jquery-1.10.1.min.js"><\/script>')</script>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/mousetrap/1.4.6/mousetrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/PreloadJS/0.4.1/preloadjs.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
   <script src="js/lib/moments.js"></script>
   <script src="js/main.js"></script>

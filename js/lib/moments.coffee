@@ -16,6 +16,7 @@ class Moments
     @summary_close_btn = options.summary_close ? $('.moments-summary-close')
     @active_container = options.active ? $('.moments-active')
     @counter_container = options.counter ? $('.moments-counter')
+    @loading_container = options.loading ? $('.moments-loading')
     @body = $('html, body')
     
     @data = false
@@ -23,13 +24,13 @@ class Moments
     @current_collection_length = 0
     @current_photo = false
     @current_photo_index = 0
+    @image_queue = false
 
     @init()
 
   init: ->
     console.log 'Moments is initialized.'
     @bindNavigationEvents()
-    @preload()
     @load()
 
   load: ->
@@ -52,10 +53,7 @@ class Moments
         console.log 'Loaded collection: ', _collection
         @current_collection = _collection
         @current_collection_length = _collection.photos.length - 1
-        @container.addClass('on')
-        @body.addClass('moments-on')
-        @on = true
-        @open()
+        @preload()
 
   open: (photo_index = 0) ->
     @current_photo = @current_collection.photos[photo_index]
@@ -82,7 +80,41 @@ class Moments
     @keyboard()
 
   preload: ->
-    console.log 'TODO: Preload images'
+    @image_queue = new createjs.LoadQueue(true)
+
+    for photo in @current_collection.photos
+      @image_queue.loadFile(photo.source)
+
+    @startLoading()
+
+    # @image_queue.on "loadstart", (e) ->
+    # , @
+
+    @image_queue.on "progress", (e) ->
+      # console.log e
+      @updateProgress(e)
+    , @
+
+    @image_queue.on "complete", (e) ->
+      # console.log e
+      @open()
+      @doneLoading()
+    , @
+
+  startLoading: ->
+    @loading_container.show()
+
+  updateProgress: (e) ->
+    # @loading_container.show()
+    _percentage = parseInt(e.loaded * 100)
+    console.log _percentage
+    @loading_container.find('span').text(_percentage.toString())
+
+  doneLoading: ->
+    @loading_container.hide()
+    @container.addClass('on')
+    @body.addClass('moments-on')
+    @on = true
 
   next: ->
     unless @current_collection_length <= @current_photo_index

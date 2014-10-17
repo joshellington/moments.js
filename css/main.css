@@ -18,7 +18,8 @@ body.moments-on, html.moments-on {
 
 .moments {
   background: white;
-  display: none; }
+  display: none;
+  font-size: 16px; }
   .moments.on {
     display: block; }
 
@@ -37,6 +38,17 @@ body.moments-on, html.moments-on {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat; }
+
+.moments-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: white;
+  padding: 20px;
+  z-index: 1100;
+  display: none; }
 
 .moments-summary {
   background: black;
@@ -64,27 +76,31 @@ body.moments-on, html.moments-on {
   top: 10px;
   right: 10px; }
 
-.moments-next, .moments-previous, .moments-close, .moments-menu, .moments-counter {
-  cursor: pointer;
+.moments-navigation {
   background: black;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
+  padding: 7px 10px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000; }
+
+.moments-next, .moments-previous, .moments-close, .moments-menu, .moments-counter {
   color: white;
-  padding: 7px 10px; }
-  .moments-next:hover, .moments-previous:hover, .moments-close:hover, .moments-menu:hover, .moments-counter:hover {
-    background: black; }
+  display: inline-block; }
+  .moments-next a, .moments-previous a, .moments-close a, .moments-menu a, .moments-counter a {
+    font-size: 16px;
+    display: inline-block;
+    color: white;
+    margin: 0;
+    padding: 0;
+    position: relative; }
+  .moments-next a:hover, .moments-previous a:hover, .moments-close a:hover, .moments-menu a:hover, .moments-counter a:hover {
+    text-decoration: underline; }
 
 .moments-next, .moments-previous {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  z-index: 1000;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%); }
-
-.moments-previous {
-  right: auto;
-  left: 0; }
+  float: right;
+  margin: 0 0 0 10px; }
 
 .moments-close {
   position: absolute;
@@ -93,15 +109,9 @@ body.moments-on, html.moments-on {
   z-index: 1000; }
 
 .moments-menu {
-  position: absolute;
-  bottom: 0;
-  left: 0;
   z-index: 1000; }
 
 .moments-counter {
-  position: absolute;
-  bottom: 0;
-  right: 0;
   z-index: 1000; }
 
 body {
